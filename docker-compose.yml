@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+
+  # mysqldb
+  mysql:
+    container_name: mysql-mars-master
+    image: arm64v8/mysql:8.0.31
+    ports:
+      - "3333:3306"
+    restart: always
+    environment:
+      TZ: UTC
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mars
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+      - ./docker/mysql/conf/db.cnf:/etc/mysql/conf.d/master.cnf
