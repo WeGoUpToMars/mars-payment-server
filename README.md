@@ -1,7 +1,7 @@
 # mars-payment-server
 
 최초 생성 : 2022.11.16
-최종 업데이트 : 2022.11.17
+최종 업데이트 : 2022.11.26
 
 ## Sequence Diagram
 
@@ -18,3 +18,34 @@
 ## ERD
 
 ![erd](img/ERD_221123.png)
+
+## 로컬 환경 구축
+
+- `./docker/mysql/conf/db.cnf`, `/docker/mysql/conf/sql/init-master.sql` 파일 생성
+
+> db.conf
+
+```
+[server]
+
+[mysqld]
+server-id=95
+log-bin
+character-set-server=utf8mb4
+collation-server=utf8mb4_bin
+lower_case_table_names=1
+default-time-zone='+00:00'
+max_connections=1000
+```
+
+> init-master.sql
+
+```sql
+CREATE DATABASE mars;
+create user 'test'@'%' identified by 'test';
+grant all privileges on mars.* to 'test'@'%';
+flush privileges;
+
+```
+
+- `startup.sh` 실행

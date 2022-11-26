@@ -16,4 +16,4 @@ services:
       MYSQL_PASSWORD: test
     volumes:
       - ./docker/mysql/data:/var/lib/mysql
-      - ./docker/mysql/conf/db.cnf:/etc/mysql/conf.d/master.cnf
+      - ./docker/mysql/conf/master.cnf:/etc/mysql/conf.d/master.cnf
