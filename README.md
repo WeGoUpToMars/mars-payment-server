@@ -23,29 +23,29 @@
 
 - `./docker/mysql/conf/db.cnf`, `/docker/mysql/conf/sql/init-master.sql` 파일 생성
 
-> db.conf
-
-```
-[server]
-
-[mysqld]
-server-id=95
-log-bin
-character-set-server=utf8mb4
-collation-server=utf8mb4_bin
-lower_case_table_names=1
-default-time-zone='+00:00'
-max_connections=1000
-```
-
-> init-master.sql
-
-```sql
-CREATE DATABASE mars;
-create user 'test'@'%' identified by 'test';
-grant all privileges on mars.* to 'test'@'%';
-flush privileges;
-
-```
-
 - `startup.sh` 실행
+
+
+## 기능 명세서
+
+1. 상품
+   - 상품 등록
+   - 상품 목록
+   - 상품 재고 수정
+2. 주문
+   - 장바구니 기능
+     - 인메모리
+   - 주문 이력 목록
+   - 주문하기, 주문 취소하기
+3. 결제
+   - 결제하기, 결제 취소하기
+   - 결제창 리다이렉트
+   - 사용자의 주문 내역과 PG사에서 받은 응답 일치 여부 판단
+   - 토큰 유효성 검사
+   - 각기 다른 PG사에 연동하기
+     - 전략 패턴 사용
+4. 유저
+   - 회원가입
+     - 아이디 중복 유효성 검사
+   - 로그인
+     - db에 저장된 아이디와 비밀번호 일치 여부만 체크
