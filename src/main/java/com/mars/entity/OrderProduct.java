@@ -1,6 +1,5 @@
 package com.mars.entity;
 
-import com.mars.common.entity.BaseEntity;
 import com.mars.product.domain.entity.Product;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class OrderProduct extends BaseEntity {
+public class OrderProduct {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
