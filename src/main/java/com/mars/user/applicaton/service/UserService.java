@@ -14,6 +14,7 @@ public class UserService {
 
   private final UserRepository userRepository;
 
+  @Transactional
   public UserJoinDto.Response join(UserJoinDto.Request request) {
     final var user = User.create(request.getName(), request.getEmail(), request.getProfile());
     userRepository.save(user);
