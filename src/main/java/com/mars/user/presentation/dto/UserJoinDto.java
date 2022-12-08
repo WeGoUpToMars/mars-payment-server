@@ -1,5 +1,6 @@
 package com.mars.user.presentation.dto;
 
+import com.mars.user.domain.entity.User;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class UserJoinDto {
 
   @Getter
-  @AllArgsConstructor
+  @AllArgsConstructor(staticName = "of")
   @NoArgsConstructor
   @Builder
   public static class Request {
@@ -37,5 +38,9 @@ public class UserJoinDto {
     private String name;
     private String email;
     private String profile;
+
+    public static Response of(User user) {
+      return new Response(user.getName(), user.getEmail(), user.getProfile());
+    }
   }
 }
