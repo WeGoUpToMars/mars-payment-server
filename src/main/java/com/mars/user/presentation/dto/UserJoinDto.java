@@ -23,6 +23,10 @@ public class UserJoinDto {
     @Size(min = 1, max = 10, message = "이름은 1 ~ 10자로 구성되어야 합니다.")
     private String name;
 
+    private String accountId;
+
+    private String password;
+
     @Email
     private String email;
 
@@ -36,11 +40,12 @@ public class UserJoinDto {
   public static class Response {
 
     private String name;
+    private String accountId;
     private String email;
     private String profile;
 
     public static Response of(User user) {
-      return new Response(user.getName(), user.getEmail(), user.getProfile());
+      return new Response(user.getName(), user.getAccountId(), user.getEmail(), user.getProfile());
     }
   }
 }

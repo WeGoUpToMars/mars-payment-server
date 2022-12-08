@@ -17,8 +17,20 @@ class UserServiceTest {
 
   @Test
   void join() {
-    final var user1 = UserJoinDto.Request.of("yong", "dfdf@gmail.com", "/user.jpg");
-    final var user2 = UserJoinDto.Request.of("joon", "fefe@gmail.com", null);
+    final var user1 = UserJoinDto.Request.builder()
+                                         .name("yong")
+                                         .accountId("dfdf")
+                                         .password("1234")
+                                         .email("dfdf@gmail.com")
+                                         .profile("/user.jpg")
+                                         .build();
+    final var user2 = UserJoinDto.Request.builder()
+                                         .name("joon")
+                                         .accountId("fefe")
+                                         .password("1234")
+                                         .email("fefe@gmail.com")
+                                         .profile(null)
+                                         .build();
 
     userService.join(user1);
     userService.join(user2);

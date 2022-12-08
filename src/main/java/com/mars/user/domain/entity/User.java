@@ -23,24 +23,31 @@ public class User extends BaseEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  private String accountId;
+  private String password;
+
   private String name;
   private String email;
   private String profile;
 
   @JsonCreator
-  private User(@JsonProperty("name") String name, @JsonProperty("email") String email, @JsonProperty("profile") String profile) {
+  private User(@JsonProperty("name") String name, @JsonProperty("accountId") String accountId, @JsonProperty("password") String password, @JsonProperty("email") String email,
+               @JsonProperty("profile") String profile) {
     this.name = name;
+    this.accountId = accountId;
+    this.password = password;
     this.email = email;
     this.profile = profile;
   }
 
-  public static User create(String name, String email, String profile) {
-    return new User(name, email, profile);
+  public static User create(String name, String accountId, String password, String email, String profile) {
+    return new User(name, accountId, password, email, profile);
   }
 
   public static UserJoinDto.Response toJoinResponse(User user) {
     return UserJoinDto.Response.builder()
                                .name(user.getName())
+                               .accountId(user.getAccountId())
                                .email(user.getEmail())
                                .profile(user.getProfile())
                                .build();
