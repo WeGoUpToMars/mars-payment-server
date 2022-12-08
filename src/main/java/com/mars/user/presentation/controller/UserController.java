@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("mars/users")
+@RequestMapping("/mars/users")
 @Slf4j
 @RequiredArgsConstructor
 public class UserController {
