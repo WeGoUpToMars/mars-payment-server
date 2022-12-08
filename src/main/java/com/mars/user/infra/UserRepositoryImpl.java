@@ -2,6 +2,7 @@ package com.mars.user.infra;
 
 import com.mars.user.domain.entity.User;
 import com.mars.user.domain.repo.UserRepository;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -20,5 +21,10 @@ public class UserRepositoryImpl implements UserRepository {
   @Override
   public Optional<User> findById(Long id) {
     return userJpa.findById(id);
+  }
+
+  @Override
+  public List<User> findAll() {
+    return userJpa.findAll();
   }
 }
