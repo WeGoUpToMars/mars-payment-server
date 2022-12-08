@@ -16,7 +16,7 @@ public class UserJoinDto {
   @AllArgsConstructor
   @NoArgsConstructor
   @Builder
-  static class UserJoinRequest {
+  public static class Request {
 
     @NotBlank(message = "이름은 공백일 수 없습니다.")
     @Size(min = 1, max = 10, message = "이름은 1 ~ 10자로 구성되어야 합니다.")
@@ -32,7 +32,7 @@ public class UserJoinDto {
   @AllArgsConstructor
   @NoArgsConstructor
   @Builder
-  static class UserJoinResponse {
+  public static class Response {
 
     private String name;
     private String email;

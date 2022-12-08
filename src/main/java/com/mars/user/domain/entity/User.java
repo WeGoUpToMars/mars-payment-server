@@ -3,6 +3,7 @@ package com.mars.user.domain.entity;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mars.common.entity.BaseEntity;
+import com.mars.user.presentation.dto.UserJoinDto;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,5 +36,13 @@ public class User extends BaseEntity {
 
   public static User create(String name, String email, String profile) {
     return new User(name, email, profile);
+  }
+
+  public static UserJoinDto.Response toJoinResponse(User user) {
+    return UserJoinDto.Response.builder()
+        .name(user.getName())
+        .email(user.getEmail())
+        .profile(user.getProfile())
+        .build();
   }
 }
