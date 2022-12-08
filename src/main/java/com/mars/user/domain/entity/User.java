@@ -40,9 +40,9 @@ public class User extends BaseEntity {
 
   public static UserJoinDto.Response toJoinResponse(User user) {
     return UserJoinDto.Response.builder()
-        .name(user.getName())
-        .email(user.getEmail())
-        .profile(user.getProfile())
-        .build();
+                               .name(user.getName())
+                               .email(user.getEmail())
+                               .profile(user.getProfile())
+                               .build();
   }
 }

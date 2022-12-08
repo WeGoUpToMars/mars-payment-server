@@ -26,7 +26,7 @@ public class UserService {
 
   public List<Response> findAll() {
     return userRepository.findAll().stream()
-        .map(UserJoinDto.Response::of)
-        .collect(Collectors.toList());
+                         .map(UserJoinDto.Response::of)
+                         .collect(Collectors.toList());
   }
 }

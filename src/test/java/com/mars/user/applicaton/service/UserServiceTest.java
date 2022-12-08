@@ -1,12 +1,11 @@
 package com.mars.user.applicaton.service;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import com.mars.test.MarsTest;
 import com.mars.user.presentation.dto.UserJoinDto;
 import java.util.NoSuchElementException;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,15 +26,15 @@ class UserServiceTest {
     final var users = userService.findAll();
 
     assertAll(
-        () -> assertEquals(2, users.size()),
-        () -> assertEquals("dfdf@gmail.com", users.stream()
-            .filter(e -> e.getName().equals("yong"))
-            .findAny()
-            .orElseThrow(NoSuchElementException::new).getEmail()),
-        () -> assertNull(users.stream()
-            .filter(e -> e.getEmail().equals("fefe@gmail.com"))
-            .findAny()
-            .orElseThrow(NoSuchElementException::new).getProfile())
+            () -> assertEquals(2, users.size()),
+            () -> assertEquals("dfdf@gmail.com", users.stream()
+                                                      .filter(e -> e.getName().equals("yong"))
+                                                      .findAny()
+                                                      .orElseThrow(NoSuchElementException::new).getEmail()),
+            () -> assertNull(users.stream()
+                                  .filter(e -> e.getEmail().equals("fefe@gmail.com"))
+                                  .findAny()
+                                  .orElseThrow(NoSuchElementException::new).getProfile())
     );
 
   }
