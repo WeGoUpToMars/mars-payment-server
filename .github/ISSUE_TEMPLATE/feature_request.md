@@ -1,7 +1,7 @@
 ---
 name: Feature request
 about: Suggest an idea for this project
-title: "[기능 추가] {제목}"
+title: "[FEATURE] {제목}"
 labels: BE
 assignees: ''
 
