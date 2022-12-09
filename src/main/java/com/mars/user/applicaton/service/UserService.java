@@ -19,7 +19,7 @@ public class UserService {
 
   @Transactional
   public UserJoinDto.Response join(UserJoinDto.Request request) {
-    final var user = User.create(request.getName(), request.getEmail(), request.getProfile());
+    final var user = User.create(request.getName(), request.getAccountId(), request.getPassword(), request.getEmail(), request.getProfile());
     userRepository.save(user);
     return User.toJoinResponse(user);
   }
