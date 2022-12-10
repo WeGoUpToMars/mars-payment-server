@@ -22,9 +22,16 @@ public class UserService {
   @Transactional
   public UserJoinDto.Response join(UserJoinDto.Request request) {
     final var user = User.create(request.getName(), request.getAccountId(), request.getPassword(), request.getEmail(), request.getProfile());
-    // TODO: 아이디 중복 체크
+    checkDuplication(user);
     userRepository.save(user);
     return User.toJoinResponse(user);
+  }
+
+  private void checkDuplication(final User user) {
+    final var duplicateUser = userRepository.findByAccountId(user.getAccountId()).orElse(null);
+    if (duplicateUser == null) {
+      throw new IllegalArgumentException("이미 존재하는 유저 아이디입니다.");
+    }
   }
 
   public String login(UserLoginDto.Request request) {
