@@ -25,7 +25,7 @@ public class ProductService {
    */
   @Transactional
   public ProductResponse save(ProductRequest request) {
-    return ProductResponse.toRes(createProduct(request));
+    return ProductResponse.of(createProduct(request));
   }
 
   private Product createProduct(ProductRequest request) {
@@ -37,7 +37,7 @@ public class ProductService {
    * product 전체 조회.
    */
   public List<ProductResponse> findAll() {
-    return productRepository.findAll().stream().map(ProductResponse::toRes).collect(Collectors.toList());
+    return productRepository.findAll().stream().map(ProductResponse::of).collect(Collectors.toList());
   }
 
   /**
@@ -45,7 +45,7 @@ public class ProductService {
    */
   public ProductResponse findById(Long id) {
     return productRepository.findById(id)
-        .map(ProductResponse::toRes)
+        .map(ProductResponse::of)
         .orElseGet(ProductResponse::empty);
   }
 
@@ -60,6 +60,6 @@ public class ProductService {
     product.updatePrice(request.getPrice());
     product.updateCategory(request.getCategory());
 
-    return ProductResponse.toRes(product);
+    return ProductResponse.of(product);
   }
 }

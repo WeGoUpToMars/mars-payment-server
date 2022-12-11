@@ -38,7 +38,7 @@ public class ProductDto {
     private Long price;
     private ProductCategory category;
 
-    public static ProductResponse toRes(Product product) {
+    public static ProductResponse of(Product product) {
       return ProductResponse.builder()
           .id(product.getId())
           .name(product.getName())
