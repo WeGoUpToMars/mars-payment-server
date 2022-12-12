@@ -24,6 +24,11 @@ public class UserRepositoryImpl implements UserRepository {
   }
 
   @Override
+  public Optional<User> findByAccountId(String accountId) {
+    return userJpa.findByAccountId(accountId);
+  }
+
+  @Override
   public List<User> findAll() {
     return userJpa.findAll();
   }

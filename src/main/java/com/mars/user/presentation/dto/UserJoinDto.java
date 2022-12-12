@@ -1,9 +1,7 @@
 package com.mars.user.presentation.dto;
 
 import com.mars.user.domain.entity.User;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Pattern;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,13 +17,13 @@ public class UserJoinDto {
   @Builder
   public static class Request {
 
-    @NotBlank(message = "이름은 공백일 수 없습니다.")
-    @Size(min = 1, max = 10, message = "이름은 1 ~ 10자로 구성되어야 합니다.")
+    @Pattern(regexp = "^(?=.*[a-zA-Z가-힣])[a-zA-Z가-힣]{1,10}$")
     private String name;
-
-    @Email
+    @Pattern(regexp = "^(?=.*[a-z])[a-z\\d]{5,20}$")
+    private String accountId;
+    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[#?!@$%^&*-])[A-Za-z\\d#?!@$%^&*-]{8,16}$")
+    private String password;
     private String email;
-
     private String profile;
   }
 
@@ -36,11 +34,12 @@ public class UserJoinDto {
   public static class Response {
 
     private String name;
+    private String accountId;
     private String email;
     private String profile;
 
     public static Response of(User user) {
-      return new Response(user.getName(), user.getEmail(), user.getProfile());
+      return new Response(user.getName(), user.getAccountId(), user.getEmail(), user.getProfile());
     }
   }
 }
