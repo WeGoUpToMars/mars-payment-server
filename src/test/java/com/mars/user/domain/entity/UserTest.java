@@ -5,12 +5,14 @@ import java.lang.reflect.InvocationTargetException;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @MarsTest
 class UserTest {
 
   @Test
+  @DisplayName("이름 필드 유효성 검사 테스트")
   void validateName() throws NoSuchMethodException {
     final var user = new User();
     final var nameValidation = User.class.getDeclaredMethod("validateName", String.class);
@@ -46,6 +48,7 @@ class UserTest {
   }
 
   @Test
+  @DisplayName("계정 아이디 필드 유효성 검사 테스트")
   void validateAccountId() throws NoSuchMethodException {
     final var user = new User();
     final var accountIdValidation = User.class.getDeclaredMethod("validateAccountId", String.class);
@@ -79,6 +82,7 @@ class UserTest {
   }
 
   @Test
+  @DisplayName("비밀번호 필드 유효성 검사 테스트")
   void validatePassword() throws NoSuchMethodException {
     final var user = new User();
     final var passwordValidation = User.class.getDeclaredMethod("validatePassword", String.class);
