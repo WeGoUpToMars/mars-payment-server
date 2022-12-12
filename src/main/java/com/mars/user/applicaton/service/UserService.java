@@ -41,7 +41,7 @@ public class UserService {
   }
 
   private void matchPassword(final User user, final Request request) {
-    if (!user.getPassword().equals(request.getPassword())) {
+    if (!user.checkPassword(request.getPassword())) {
       throw new IllegalArgumentException("아이디 혹은 비밀번호가 잘못 입력되었습니다.");
     }
   }

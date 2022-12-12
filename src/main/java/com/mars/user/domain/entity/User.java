@@ -75,4 +75,8 @@ public class User extends BaseEntity {
       throw new IllegalArgumentException("영문 대,소문자, 숫자, 특수기호가 적어도 1개 이상씩 포함된 8자 ~ 16자로 구성되어야 합니다.");
     }
   }
+
+  public boolean checkPassword(String password) {
+    return this.password.equals(password);
+  }
 }
