@@ -1,6 +1,7 @@
 package com.mars.user.presentation.dto;
 
 import com.mars.user.domain.entity.User;
+import javax.validation.constraints.Pattern;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,8 +17,11 @@ public class UserJoinDto {
   @Builder
   public static class Request {
 
+    @Pattern(regexp = "^(?=.*[a-zA-Z가-힣])[a-zA-Z가-힣]{1,10}$")
     private String name;
+    @Pattern(regexp = "^(?=.*[a-z])[a-z\\d]{5,20}$")
     private String accountId;
+    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[#?!@$%^&*-])[A-Za-z\\d#?!@$%^&*-]{8,16}$")
     private String password;
     private String email;
     private String profile;
