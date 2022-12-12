@@ -29,7 +29,7 @@ public class UserService {
 
   private void checkDuplication(final User user) {
     final var duplicateUser = userRepository.findByAccountId(user.getAccountId()).orElse(null);
-    if (duplicateUser == null) {
+    if (duplicateUser != null) {
       throw new IllegalArgumentException("이미 존재하는 유저 아이디입니다.");
     }
   }
