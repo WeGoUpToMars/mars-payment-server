@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/mars")
+@RequestMapping("/mars/users")
 @Slf4j
 @RequiredArgsConstructor
 public class UserController {
 
   private final UserService userService;
 
-  @PostMapping(value = "/users/join", produces = "application/json")
+  @PostMapping(value = "/join", produces = "application/json")
   public ResponseEntity<Response> join(UserJoinDto.Request request) {
     return new ResponseEntity<>(userService.join(request), null, HttpStatus.OK);
   }

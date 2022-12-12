@@ -11,17 +11,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserJoinDto {
 
+  private static final String NAME_VALIDATION_REGEX = "^(?=.*[a-zA-Z가-힣])[a-zA-Z가-힣]{1,10}$";
+  private static final String ACCOUNT_ID_VALIDATION_REGEX = "^(?=.*[a-z])[a-z\\d]{5,20}$";
+  private static final String PASSWORD_VALIDATION_REGEX = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[#?!@$%^&*-])[A-Za-z\\d#?!@$%^&*-]{8,16}$";
+
   @Getter
   @AllArgsConstructor(staticName = "of")
   @NoArgsConstructor
   @Builder
   public static class Request {
 
-    @Pattern(regexp = "^(?=.*[a-zA-Z가-힣])[a-zA-Z가-힣]{1,10}$")
+    @Pattern(regexp = NAME_VALIDATION_REGEX)
     private String name;
-    @Pattern(regexp = "^(?=.*[a-z])[a-z\\d]{5,20}$")
+    @Pattern(regexp = ACCOUNT_ID_VALIDATION_REGEX)
     private String accountId;
-    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[#?!@$%^&*-])[A-Za-z\\d#?!@$%^&*-]{8,16}$")
+    @Pattern(regexp = PASSWORD_VALIDATION_REGEX)
     private String password;
     private String email;
     private String profile;
