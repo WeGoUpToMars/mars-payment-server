@@ -13,4 +13,6 @@ public interface UserRepository {
   Optional<User> findByAccountId(String accountId);
 
   List<User> findAll();
+
+  boolean existsByAccountId(String accountId);
 }

@@ -32,4 +32,9 @@ public class UserRepositoryImpl implements UserRepository {
   public List<User> findAll() {
     return userJpa.findAll();
   }
+
+  @Override
+  public boolean existsByAccountId(String accountId) {
+    return userJpa.existsByAccountId(accountId);
+  }
 }

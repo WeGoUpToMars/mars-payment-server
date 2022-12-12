@@ -28,8 +28,7 @@ public class UserService {
   }
 
   private void checkDuplication(final UserJoinDto.Request request) {
-    final var duplicateUser = userRepository.findByAccountId(request.getAccountId()).orElse(null);
-    if (duplicateUser != null) {
+    if (!userRepository.existsByAccountId(request.getAccountId())) {
       throw new IllegalArgumentException("이미 존재하는 유저 아이디입니다.");
     }
   }
