@@ -34,8 +34,8 @@ public class UserService {
   }
 
   public String login(UserLoginDto.Request request) {
-    final var user = userRepository.findByAccountId(request.getAccountId()).orElse(null);
-    checkPresence(user);
+    final var user = userRepository.findByAccountId(request.getAccountId())
+                                   .orElseThrow(() -> new IllegalArgumentException("해당 아이디를 가진 계정이 존재하지 않습니다."));
     matchPassword(user, request);
     return "OK";
   }
@@ -43,12 +43,6 @@ public class UserService {
   private void matchPassword(final User user, final Request request) {
     if (!user.getPassword().equals(request.getPassword())) {
       throw new IllegalArgumentException("아이디 혹은 비밀번호가 잘못 입력되었습니다.");
-    }
-  }
-
-  private void checkPresence(final User user) {
-    if (user == null) {
-      throw new IllegalArgumentException("해당 아이디를 가진 계정이 존재하지 않습니다.");
     }
   }
 
