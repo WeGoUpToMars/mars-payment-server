@@ -18,6 +18,10 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 public class User extends BaseEntity {
 
+  private static final String NAME_VALIDATION_REGEX = "^(?=.*[a-zA-Z가-힣])[a-zA-Z가-힣]{1,10}$";
+  private static final String ACCOUNT_ID_VALIDATION_REGEX = "^(?=.*[a-z])[a-z\\d]{5,20}$";
+  private static final String PASSWORD_VALIDATION_REGEX = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[#?!@$%^&*-])[A-Za-z\\d#?!@$%^&*-]{8,16}$";
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -59,19 +63,19 @@ public class User extends BaseEntity {
   }
 
   private void validateName(String name) {
-    if (!Pattern.matches("^(?=.*[a-zA-Z가-힣])[a-zA-Z가-힣]{1,10}$", name)) {
+    if (!Pattern.matches(NAME_VALIDATION_REGEX, name)) {
       throw new IllegalArgumentException("한글, 영문 대,소문자로 구성된 1 ~ 10자로 구성되어야 합니다.");
     }
   }
 
   private void validateAccountId(String accountId) {
-    if (!Pattern.matches("^(?=.*[a-z])[a-z\\d]{5,20}$", accountId)) {
+    if (!Pattern.matches(ACCOUNT_ID_VALIDATION_REGEX, accountId)) {
       throw new IllegalArgumentException("영문 소문자와 숫자로 구성된 5자 ~ 20자여야 합니다. (영문자 필수 입력)");
     }
   }
 
   private void validatePassword(String password) {
-    if (!Pattern.matches("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[#?!@$%^&*-])[A-Za-z\\d#?!@$%^&*-]{8,16}$", password)) {
+    if (!Pattern.matches(PASSWORD_VALIDATION_REGEX, password)) {
       throw new IllegalArgumentException("영문 대,소문자, 숫자, 특수기호가 적어도 1개 이상씩 포함된 8자 ~ 16자로 구성되어야 합니다.");
     }
   }
