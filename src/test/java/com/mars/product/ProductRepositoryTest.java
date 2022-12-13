@@ -1,15 +1,14 @@
 package com.mars.product;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import com.mars.common.test.MarsTest;
 import com.mars.product.domain.entity.Product;
 import com.mars.product.domain.entity.constant.ProductCategory;
 import com.mars.product.domain.repo.ProductRepository;
-import com.mars.test.MarsTest;
 import java.util.NoSuchElementException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,10 +35,10 @@ class ProductRepositoryTest {
     final Product save = productRepository.save(product);
 
     assertAll(
-        () -> assertEquals(1, productRepository.findAll().size()),
-        () -> assertEquals(product.getName(), save.getName()),
-        () -> assertEquals(product.getPrice(), save.getPrice()),
-        () -> assertEquals(product.getCategory(), save.getCategory())
+            () -> assertEquals(1, productRepository.findAll().size()),
+            () -> assertEquals(product.getName(), save.getName()),
+            () -> assertEquals(product.getPrice(), save.getPrice()),
+            () -> assertEquals(product.getCategory(), save.getCategory())
     );
   }
 

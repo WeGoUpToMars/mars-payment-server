@@ -1,6 +1,6 @@
 package com.mars.user.domain.entity;
 
-import com.mars.test.MarsTest;
+import com.mars.common.test.MarsTest;
 import java.lang.reflect.InvocationTargetException;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;

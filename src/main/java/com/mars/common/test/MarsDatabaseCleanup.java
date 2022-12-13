@@ -1,4 +1,4 @@
-package com.mars.test;
+package com.mars.common.test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

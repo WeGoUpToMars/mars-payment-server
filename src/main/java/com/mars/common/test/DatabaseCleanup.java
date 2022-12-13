@@ -1,4 +1,4 @@
-package com.mars.test;
+package com.mars.common.test;
 
 import com.google.common.base.CaseFormat;
 import java.util.List;

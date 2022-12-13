@@ -1,6 +1,6 @@
 package com.mars;
 
-import com.mars.test.MarsTest;
+import com.mars.common.test.MarsTest;
 import org.junit.jupiter.api.Test;
 
 @MarsTest

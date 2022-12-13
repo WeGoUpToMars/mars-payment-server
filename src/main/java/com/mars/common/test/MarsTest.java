@@ -1,4 +1,4 @@
-package com.mars.test;
+package com.mars.common.test;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

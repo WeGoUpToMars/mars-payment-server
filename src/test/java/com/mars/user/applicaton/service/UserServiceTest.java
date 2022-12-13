@@ -1,6 +1,6 @@
 package com.mars.user.applicaton.service;
 
-import com.mars.test.MarsTest;
+import com.mars.common.test.MarsTest;
 import com.mars.user.presentation.dto.UserJoinDto;
 import com.mars.user.presentation.dto.UserLoginDto;
 import com.mars.user.presentation.dto.UserLoginDto.Request;
