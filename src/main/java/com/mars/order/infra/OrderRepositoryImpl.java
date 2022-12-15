@@ -20,7 +20,7 @@ public class OrderRepositoryImpl implements OrderRepository {
   }
 
   @Override
-  public Optional<Order> findByUser(User user) {
+  public List<Order> findByUser(User user) {
     return orderJpa.findByUser(user);
   }
 

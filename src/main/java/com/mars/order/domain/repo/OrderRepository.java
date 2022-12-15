@@ -9,7 +9,7 @@ public interface OrderRepository {
 
   Order save(Order order);
 
-  Optional<Order> findByUser(User user);
+  List<Order> findByUser(User user);
 
   List<Order> findAll();
 

@@ -5,6 +5,7 @@ import com.mars.order.domain.entity.OrderProduct;
 import com.mars.order.domain.repo.OrderRepository;
 import com.mars.order.presentation.dto.OrderDto.Request;
 import com.mars.order.presentation.dto.OrderDto.Response;
+import com.mars.product.domain.entity.Product;
 import com.mars.product.domain.repo.ProductRepository;
 import com.mars.user.domain.entity.User;
 import com.mars.user.domain.repo.UserRepository;
@@ -27,26 +28,28 @@ public class OrderService {
   @Transactional
   public Response save(Request request) {
     final User user = userRepository.findByAccountId(request.getAccountId()).orElseThrow(NoSuchElementException::new);
-    final Order order = orderRepository.save(Order.create(request.getOrderUuid(), request.getAmount(), request.getOrderStatus(), user));
+    final List<Product> products = productRepository.findByIds(request.getProductIds());
+    final long totalPrice = products.stream().mapToLong(Product::getPrice).sum();
+    final Order order = orderRepository.save(Order.create(request.getOrderUuid(), totalPrice, user));
 
-    makeOrderProductMapping(request, order);
+    makeOrderProductMapping(products, order);
     return Response.of(order);
   }
 
-  private void makeOrderProductMapping(Request request, Order order) {
-    final List<OrderProduct> orderProducts = productRepository.findByIds(request.getProductIds()).stream()
-                                                              .map(product -> OrderProduct.create(order, product))
-                                                              .collect(Collectors.toList());
+  private void makeOrderProductMapping(List<Product> products, Order order) {
+    final List<OrderProduct> orderProducts = products.stream()
+                                                     .map(product -> OrderProduct.create(order, product))
+                                                     .collect(Collectors.toList());
 
     order.addProduct(orderProducts);
   }
 
-  public Response findByUser(String accountId) {
+  public List<Response> findByUser(String accountId) {
     final User user = userRepository.findByAccountId(accountId).orElseThrow(NoSuchElementException::new);
 
-    return orderRepository.findByUser(user)
+    return orderRepository.findByUser(user).stream()
                           .map(Response::of)
-                          .orElseGet(Response::empty);
+                          .collect(Collectors.toList());
   }
 
   public List<Response> findAll() {

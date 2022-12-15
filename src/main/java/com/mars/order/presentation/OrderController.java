@@ -35,7 +35,7 @@ public class OrderController {
   }
 
   @GetMapping("/users/{accountId}")
-  public ResponseEntity<OrderDto.Response> findByUser(@PathVariable(value = "accountId") String accountId) {
+  public ResponseEntity<List<OrderDto.Response>> findByUser(@PathVariable(value = "accountId") String accountId) {
     return ResponseEntity.ok(orderService.findByUser(accountId));
   }
 }
