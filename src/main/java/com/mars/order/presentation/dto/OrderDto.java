@@ -1,7 +1,6 @@
 package com.mars.order.presentation.dto;
 
 import com.mars.order.domain.entity.Order;
-import com.mars.order.domain.entity.constant.OrderStatus;
 import com.mars.product.presentation.dto.ProductDto;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +16,7 @@ import lombok.NoArgsConstructor;
 public class OrderDto {
 
   @Getter
+  @Builder
   @NoArgsConstructor
   @AllArgsConstructor
   public static class Request {
@@ -24,11 +24,8 @@ public class OrderDto {
     @NotNull
     private String orderUuid;
     @NotNull
-    private Long amount;
-    @NotNull
-    private OrderStatus orderStatus;
-    @NotNull
     private String accountId;
+    @Builder.Default
     private List<Long> productIds = new ArrayList<>();
   }
 
