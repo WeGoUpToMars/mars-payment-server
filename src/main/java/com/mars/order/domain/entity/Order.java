@@ -40,7 +40,7 @@ public class Order extends BaseEntity {
   private Long amount;
 
   @Enumerated(value = EnumType.STRING)
-  private OrderStatus status;
+  private OrderStatus status = OrderStatus.ORDERED;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
@@ -49,19 +49,17 @@ public class Order extends BaseEntity {
   @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<OrderProduct> orderProducts = new ArrayList<>();
 
-  private Order(String orderUuid, Long amount, OrderStatus status, User user) {
+  private Order(String orderUuid, Long amount, User user) {
     this.orderUuid = orderUuid;
     this.amount = amount;
-    this.status = status;
     this.user = user;
   }
 
-  public static Order create(String orderUuid, Long amount, OrderStatus status, User user) {
+  public static Order create(String orderUuid, Long amount, User user) {
     Objects.requireNonNull(orderUuid);
     Objects.requireNonNull(amount);
-    Objects.requireNonNull(status);
     Objects.requireNonNull(user);
-    return new Order(orderUuid, amount, status, user);
+    return new Order(orderUuid, amount, user);
   }
 
   public List<Product> getProducts() {
@@ -90,11 +88,6 @@ public class Order extends BaseEntity {
   public void updateAmount(Long amount) {
     Objects.requireNonNull(amount);
     this.amount = amount;
-  }
-
-  public void updateStatus(OrderStatus status) {
-    Objects.requireNonNull(status);
-    this.status = status;
   }
 
   public void ordered() {
