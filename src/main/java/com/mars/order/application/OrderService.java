@@ -3,7 +3,7 @@ package com.mars.order.application;
 import com.mars.order.domain.entity.Order;
 import com.mars.order.domain.entity.OrderProduct;
 import com.mars.order.domain.repo.OrderRepository;
-import com.mars.order.presentation.dto.OrderDto.Request;
+import com.mars.order.presentation.dto.OrderDto;
 import com.mars.order.presentation.dto.OrderDto.Response;
 import com.mars.product.domain.entity.Product;
 import com.mars.product.domain.repo.ProductRepository;
@@ -11,6 +11,7 @@ import com.mars.user.domain.entity.User;
 import com.mars.user.domain.repo.UserRepository;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,11 +27,11 @@ public class OrderService {
   private final ProductRepository productRepository;
 
   @Transactional
-  public Response save(Request request) {
+  public OrderDto.Response save(OrderDto.Request request) {
     final User user = userRepository.findByAccountId(request.getAccountId()).orElseThrow(NoSuchElementException::new);
     final List<Product> products = productRepository.findByIds(request.getProductIds());
     final long totalPrice = products.stream().mapToLong(Product::getPrice).sum();
-    final Order order = orderRepository.save(Order.create(request.getOrderUuid(), totalPrice, user));
+    final Order order = orderRepository.save(Order.create(UUID.randomUUID().toString(), totalPrice, user));
 
     makeOrderProductMapping(products, order);
     return Response.of(order);
@@ -44,7 +45,7 @@ public class OrderService {
     order.addProduct(orderProducts);
   }
 
-  public List<Response> findByUser(String accountId) {
+  public List<OrderDto.Response> findByUser(String accountId) {
     final User user = userRepository.findByAccountId(accountId).orElseThrow(NoSuchElementException::new);
 
     return orderRepository.findByUser(user).stream()
@@ -52,13 +53,13 @@ public class OrderService {
                           .collect(Collectors.toList());
   }
 
-  public List<Response> findAll() {
+  public List<OrderDto.Response> findAll() {
     return orderRepository.findAll().stream()
                           .map(Response::of)
                           .collect(Collectors.toList());
   }
 
-  public Response findByOrderUuid(String orderUuid) {
+  public OrderDto.Response findByOrderUuid(String orderUuid) {
     return orderRepository.findByUuid(orderUuid)
                           .map(Response::of)
                           .orElseGet(Response::empty);

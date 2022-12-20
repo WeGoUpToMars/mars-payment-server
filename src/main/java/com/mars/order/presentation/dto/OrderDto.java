@@ -22,8 +22,6 @@ public class OrderDto {
   public static class Request {
 
     @NotNull
-    private String orderUuid;
-    @NotNull
     private String accountId;
     @Builder.Default
     private List<Long> productIds = new ArrayList<>();
@@ -35,14 +33,12 @@ public class OrderDto {
   @AllArgsConstructor
   public static class Response {
 
-    private Long id;
     private String orderUuid;
     private Long amount;
     private List<ProductDto.ProductResponse> products;
 
     public static Response of(Order order) {
       return Response.builder()
-                     .id(order.getId())
                      .orderUuid(order.getOrderUuid())
                      .amount(order.getAmount())
                      .products(order.getProducts().stream()
