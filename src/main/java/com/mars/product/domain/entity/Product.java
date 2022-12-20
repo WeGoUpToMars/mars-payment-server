@@ -1,7 +1,7 @@
 package com.mars.product.domain.entity;
 
 import com.mars.common.entity.BaseEntity;
-import com.mars.entity.OrderProduct;
+import com.mars.order.domain.entity.OrderProduct;
 import com.mars.product.domain.entity.constant.ProductCategory;
 import java.util.ArrayList;
 import java.util.List;
