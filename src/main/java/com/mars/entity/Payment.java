@@ -1,6 +1,7 @@
 package com.mars.entity;
 
 import com.mars.common.entity.BaseEntity;
+import com.mars.order.domain.entity.Order;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
