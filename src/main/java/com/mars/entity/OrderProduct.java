@@ -1,5 +1,6 @@
 package com.mars.entity;
 
+import com.mars.product.domain.entity.Product;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
