@@ -1,6 +1,7 @@
 package com.mars.order.domain.entity;
 
 import com.mars.common.entity.BaseEntity;
+import com.mars.order.constant.OrderExceptionInfo;
 import com.mars.order.domain.entity.constant.OrderStatus;
 import com.mars.product.domain.entity.Product;
 import com.mars.user.domain.entity.User;
@@ -68,7 +69,7 @@ public class Order extends BaseEntity {
     Objects.requireNonNull(user);
 
     if (amount <= 0) {
-      throw new IllegalArgumentException("주문 금액은 0보다 커야 합니다");
+      throw OrderExceptionInfo.INVALID_ORDER_AMOUNT.exception();
     }
   }
 
@@ -92,7 +93,7 @@ public class Order extends BaseEntity {
   public void updateProduct(List<OrderProduct> orderProducts) {
     Objects.requireNonNull(orderProducts);
     if (orderProducts.isEmpty()) {
-      throw new IllegalArgumentException("적어도 한 개 이상의 상품이 담겨야 합니다.");
+      throw OrderExceptionInfo.INVALID_PRODUCT_LIST_SIZE.exception();
     }
     this.orderProducts = orderProducts;
   }
