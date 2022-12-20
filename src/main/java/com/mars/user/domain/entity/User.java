@@ -1,6 +1,7 @@
 package com.mars.user.domain.entity;
 
 import com.mars.common.entity.BaseEntity;
+import com.mars.user.domain.constant.UserExceptionInfo;
 import com.mars.user.presentation.dto.UserJoinDto;
 import java.util.regex.Pattern;
 import javax.persistence.Entity;
@@ -64,19 +65,19 @@ public class User extends BaseEntity {
 
   private void validateName(String name) {
     if (!Pattern.matches(NAME_VALIDATION_REGEX, name)) {
-      throw new IllegalArgumentException("한글, 영문 대,소문자로 구성된 1 ~ 10자로 구성되어야 합니다.");
+      throw UserExceptionInfo.NOT_VALID_USER_NAME.exception();
     }
   }
 
   private void validateAccountId(String accountId) {
     if (!Pattern.matches(ACCOUNT_ID_VALIDATION_REGEX, accountId)) {
-      throw new IllegalArgumentException("영문 소문자와 숫자로 구성된 5자 ~ 20자여야 합니다. (영문자 필수 입력)");
+      throw UserExceptionInfo.NOT_VALID_ACCOUNT_ID.exception();
     }
   }
 
   private void validatePassword(String password) {
     if (!Pattern.matches(PASSWORD_VALIDATION_REGEX, password)) {
-      throw new IllegalArgumentException("영문 대,소문자, 숫자, 특수기호가 적어도 1개 이상씩 포함된 8자 ~ 16자로 구성되어야 합니다.");
+      throw UserExceptionInfo.NOT_VALID_PASSWORD.exception();
     }
   }
 

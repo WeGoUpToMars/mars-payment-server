@@ -1,5 +1,6 @@
 package com.mars.user.applicaton.service;
 
+import com.mars.user.applicaton.constant.UserExceptionInfo;
 import com.mars.user.domain.entity.User;
 import com.mars.user.domain.repo.UserRepository;
 import com.mars.user.presentation.dto.UserJoinDto;
@@ -29,20 +30,20 @@ public class UserService {
 
   private void checkDuplication(final UserJoinDto.Request request) {
     if (userRepository.existsByAccountId(request.getAccountId())) {
-      throw new IllegalArgumentException("이미 존재하는 유저 아이디입니다.");
+      throw UserExceptionInfo.DUPLICATE_USER_ID.exception();
     }
   }
 
   public String login(UserLoginDto.Request request) {
     final var user = userRepository.findByAccountId(request.getAccountId())
-                                   .orElseThrow(() -> new IllegalArgumentException("해당 아이디를 가진 계정이 존재하지 않습니다."));
+                                   .orElseThrow(UserExceptionInfo.ACCOUNT_NOT_EXIST::exception);
     matchPassword(user, request);
     return "OK";
   }
 
   private void matchPassword(final User user, final Request request) {
     if (!user.checkPassword(request.getPassword())) {
-      throw new IllegalArgumentException("아이디 혹은 비밀번호가 잘못 입력되었습니다.");
+      throw UserExceptionInfo.ID_PASSWORD_NOT_MATCH.exception();
     }
   }
 
