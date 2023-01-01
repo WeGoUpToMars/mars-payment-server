@@ -1,14 +1,14 @@
 package com.mars.payment.common.repository;
 
-import com.mars.payment.kakao.dto.ApproveInfo;
-import com.mars.payment.kakao.dto.InquiryInfo;
-import com.mars.payment.kakao.dto.PrepareInfo;
+import com.mars.payment.common.dto.ApproveInfo;
+import com.mars.payment.common.dto.InquiryInfo;
+import com.mars.payment.common.dto.PrepareInfo;
 
 public interface PaymentRepository {
 
-  void preparePayment(PrepareInfo.Request prepareInfo);
+  void preparePayment(PrepareInfo.Request prepareRequest);
 
-  void requestPayment(InquiryInfo.Request inquiryInfo);
+  void inquiryPayment(InquiryInfo.Request inquiryRequest);
 
-  void approvePayment(ApproveInfo.Request approveInfo);
+  void approvePayment(ApproveInfo.Request approveRequest);
 }
