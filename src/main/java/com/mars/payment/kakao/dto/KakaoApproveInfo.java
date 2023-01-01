@@ -1,5 +1,6 @@
 package com.mars.payment.kakao.dto;
 
+import com.mars.payment.common.dto.ApproveInfo;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -8,13 +9,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ApproveInfo {
+public class KakaoApproveInfo {
 
   @Data
   @NoArgsConstructor
   @AllArgsConstructor
   @Builder
-  public static class Request {
+  public static class Request implements ApproveInfo.Request {
     private String cid; // 가맹점 코드
     private String tid; // 결제 고유번호
     private String partnerOrderId; // 가맹정 주문 번호
@@ -26,7 +27,7 @@ public class ApproveInfo {
   @NoArgsConstructor
   @AllArgsConstructor
   @Builder
-  public static class Response {
+  public static class Response implements ApproveInfo.Response {
     private String aid; // 요청 고유 번호
     private String tid; // 결제 고유 번호
     private String cid; // 가맹점 코드
