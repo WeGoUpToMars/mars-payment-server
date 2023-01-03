@@ -1,4 +1,4 @@
-package com.mars.payment.mars.infrastructure;
+package com.mars.payment.mars.infra;
 
 import com.mars.payment.mars.domain.repository.MarsPayRepository;
 

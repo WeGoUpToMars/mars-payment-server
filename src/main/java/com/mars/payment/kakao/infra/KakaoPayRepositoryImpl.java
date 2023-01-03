@@ -1,4 +1,4 @@
-package com.mars.payment.kakao.infrastructure;
+package com.mars.payment.kakao.infra;
 
 import com.mars.payment.kakao.domain.repository.KakaoPayRepository;
 import com.mars.payment.kakao.presentation.dto.KakaoApprove;
