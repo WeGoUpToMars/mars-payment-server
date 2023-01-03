@@ -1,6 +1,5 @@
-package com.mars.payment.kakao.dto;
+package com.mars.payment.kakao.presentation.dto;
 
-import com.mars.payment.common.dto.PrepareInfo;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -9,13 +8,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class KakaoPrepareInfo {
+public class KakaoPrepare {
 
   @Data
   @NoArgsConstructor
   @AllArgsConstructor
   @Builder
-  public static class Request implements PrepareInfo.Request {
+  public static class Request {
     private String cid; // 가맹점 코드
     private String partnerOrderId; // 가맹점 주문 번호
     private String partnerUserId; // 가맹점 회원 id
@@ -32,7 +31,7 @@ public class KakaoPrepareInfo {
   @NoArgsConstructor
   @AllArgsConstructor
   @Builder
-  public static class Response implements PrepareInfo.Response {
+  public static class Response {
     private String tid; // 결제 고유 번호
     private String nextRedirectAppUrl; // 요청한 클라이언트가 모바일 앱일 경우 결제페이지 redirect url
     private String nextRedirectMobileUrl; // 요청한 클라이언트가 모바일 웹일 경우 결제페이지 redirect url

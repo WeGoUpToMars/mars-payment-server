@@ -1,6 +1,5 @@
-package com.mars.payment.kakao.dto;
+package com.mars.payment.kakao.presentation.dto;
 
-import com.mars.payment.common.dto.InquiryInfo;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,13 +7,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class KakaoInquiryInfo {
+public class KakaoInquiry {
 
   @Data
   @NoArgsConstructor
   @AllArgsConstructor
   @Builder
-  public static class Request implements InquiryInfo.Request {
+  public static class Request {
 
   }
 
@@ -22,7 +21,7 @@ public class KakaoInquiryInfo {
   @NoArgsConstructor
   @AllArgsConstructor
   @Builder
-  public static class Response implements InquiryInfo.Response {
+  public static class Response {
 
   }
 }
