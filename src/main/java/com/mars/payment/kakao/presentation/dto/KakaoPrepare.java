@@ -1,11 +1,14 @@
 package com.mars.payment.kakao.presentation.dto;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mars.common.util.MultiValueMapConverter;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.util.MultiValueMap;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class KakaoPrepare {
@@ -40,4 +43,9 @@ public class KakaoPrepare {
     private String iosAppScheme; // 결제 화면으로 이동하는 ios 앱 스킴
     private LocalDateTime createdAt; // 결제 준비 요청 시간
   }
+
+  public static MultiValueMap<String, String> convertToMap(KakaoPrepare.Request request, ObjectMapper objectMapper) {
+    return MultiValueMapConverter.convert(objectMapper, request);
+  }
 }
+
