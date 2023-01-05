@@ -6,6 +6,7 @@ import com.mars.payment.kakao.presentation.dto.KakaoApprove;
 import com.mars.payment.kakao.presentation.dto.KakaoInquiry;
 import com.mars.payment.kakao.presentation.dto.KakaoPrepare;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class KakaoPayRepositoryImpl implements KakaoPayRepository {
 
   private static final String KAKAO_HOST = "https://kapi.kakao.com";
@@ -31,7 +33,7 @@ public class KakaoPayRepositoryImpl implements KakaoPayRepository {
     try {
       restTemplate.postForLocation(getKakaoPayPrepareUrl(), body);
     } catch (RestClientException e) {
-      e.printStackTrace();
+      log.error("카카오 결제 준비 과정에서 문제가 발생했습니다.", e);
     }
   }
 
