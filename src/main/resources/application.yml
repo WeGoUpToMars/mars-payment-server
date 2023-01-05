@@ -2,6 +2,9 @@ server:
   port: 18189
 
 spring:
+  profiles:
+    include: pay
+
   datasource:
     url: jdbc:mysql://multipass:3333/mars?createDatabaseIfNotExist=true
     username: test
