@@ -32,7 +32,6 @@ public class TossPayApiImpl implements TossPayApi {
   public TossPayment createPayment(TossCreatePayment tossCreatePayment) {
     final HttpEntity<String> body = getRequestBody(tossCreatePayment);
     final ResponseEntity<TossPayment> response = restTemplate.postForEntity(TossPayConstant.getCreatePaymentUrl(), body, TossPayment.class);
-    log.info("{}\n{}\n{}", response.getBody(), response.getStatusCode(), response.getHeaders());
 
     return response.getBody();
   }
@@ -41,7 +40,6 @@ public class TossPayApiImpl implements TossPayApi {
   public TossPayment confirmPayment(TossConfirmPayment tossConfirmPayment) {
     final HttpEntity<String> body = getRequestBody(tossConfirmPayment);
     final ResponseEntity<TossPayment> response = restTemplate.postForEntity(TossPayConstant.getConfirmPaymentUrl(), body, TossPayment.class);
-    log.info("{}\n{}\n{}", response.getBody(), response.getStatusCode(), response.getHeaders());
 
     return response.getBody();
   }
@@ -50,7 +48,6 @@ public class TossPayApiImpl implements TossPayApi {
   public List<TossPayment.Cancel> cancelPayment(String paymentKey, TossCancelPayment tossCancelPayment) {
     final HttpEntity<String> body = getRequestBody(tossCancelPayment);
     final ResponseEntity<TossPayment> response = restTemplate.postForEntity(TossPayConstant.getCancelPaymentUrl(paymentKey), body, TossPayment.class);
-    log.info("{}\n{}\n{}", response.getBody(), response.getStatusCode(), response.getHeaders());
 
     if (Objects.isNull(response.getBody())) {
       return Collections.emptyList();
@@ -62,7 +59,6 @@ public class TossPayApiImpl implements TossPayApi {
   @Override
   public TossPayment orderInquiry(String orderId) {
     final ResponseEntity<TossPayment> response = restTemplate.exchange(TossPayConstant.getOrderInquiryUrl(orderId), HttpMethod.GET, getAuthorizationHeader(), TossPayment.class);
-    log.info("{}\n{}\n{}", response.getBody(), response.getStatusCode(), response.getHeaders());
 
     return response.getBody();
   }
@@ -70,7 +66,6 @@ public class TossPayApiImpl implements TossPayApi {
   @Override
   public TossPayment paymentInquiry(String paymentKey) {
     final ResponseEntity<TossPayment> response = restTemplate.exchange(TossPayConstant.getPaymentInquiryUrl(paymentKey), HttpMethod.GET, getAuthorizationHeader(), TossPayment.class);
-    log.info("{}\n{}\n{}", response.getBody(), response.getStatusCode(), response.getHeaders());
 
     return response.getBody();
   }
