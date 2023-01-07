@@ -20,4 +20,12 @@ public class CustomException extends RuntimeException {
     this.status = status;
     this.message = message;
   }
+
+  public static CustomException of(String message, HttpStatus status) {
+    return new CustomException(message, status);
+  }
+
+  public static CustomException of(String message, HttpStatus status, Throwable cause) {
+    return new CustomException(message, status, cause);
+  }
 }

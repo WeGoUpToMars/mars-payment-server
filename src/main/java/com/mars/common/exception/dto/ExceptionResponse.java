@@ -1,5 +1,7 @@
 package com.mars.common.exception.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.mars.common.exception.vo.CustomException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ import org.springframework.validation.FieldError;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@JsonInclude(Include.NON_EMPTY)
 public class ExceptionResponse {
 
   private String message;
