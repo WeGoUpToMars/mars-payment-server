@@ -3,13 +3,10 @@ server:
 
 spring:
   profiles:
-    include: pay
+    group:
+      "default": "datasource,pay"
+      "local": "local-datasource,pay"
 
-  datasource:
-    url: jdbc:mysql://multipass:3333/mars?createDatabaseIfNotExist=true
-    username: test
-    password: test
-    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
