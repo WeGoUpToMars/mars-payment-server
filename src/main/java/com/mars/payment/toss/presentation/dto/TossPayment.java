@@ -1,6 +1,9 @@
 package com.mars.payment.toss.presentation.dto;
 
 import lombok.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 // https://docs.tosspayments.com/reference#payment-%EA%B0%9D%EC%B2%B4
 @Getter
@@ -28,6 +31,11 @@ public class TossPayment {
   private Receipt receipt;
   private Checkout checkout;
   private Failure failure;
+  private List<Cancel> cancels;
+
+  public List<Cancel> getCancels() {
+    return Objects.isNull(cancels) ? Collections.emptyList() : this.cancels;
+  }
 
   @Getter
   @ToString
@@ -55,5 +63,21 @@ public class TossPayment {
   public static class Failure {
     private String code;
     private String message;
+  }
+
+  @Getter
+  @ToString
+  @NoArgsConstructor(access = AccessLevel.PRIVATE)
+  @AllArgsConstructor(access = AccessLevel.PRIVATE)
+  @Builder
+  public static class Cancel {
+    private Long cancelAmount;
+    private String cancelReason;
+    private Long taxFreeAmount;
+    private Integer taxExemptionAmount;
+    private Long refundableAmount;
+    private Long easyPayDiscountAmount;
+    private String canceledAt;
+    private String transactionKey;
   }
 }

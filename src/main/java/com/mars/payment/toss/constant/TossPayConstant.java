@@ -20,4 +20,12 @@ public class TossPayConstant {
     Objects.requireNonNull(paymentKey);
     return host + "/v1/payments/" + paymentKey + "/cancel";
   }
+
+  public static String getOrderInquiryUrl(String orderId) {
+    return host + "/v1/payments/orders/" + orderId;
+  }
+
+  public static String getPaymentInquiryUrl(String paymentKey) {
+    return host + "/v1/payments/" + paymentKey;
+  }
 }
