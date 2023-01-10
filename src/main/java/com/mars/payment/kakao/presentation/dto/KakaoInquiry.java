@@ -14,6 +14,7 @@ public class KakaoInquiry {
   @AllArgsConstructor
   @Builder
   public static class Request {
+    private String test1;
 
   }
 
@@ -22,6 +23,6 @@ public class KakaoInquiry {
   @AllArgsConstructor
   @Builder
   public static class Response {
-
+    private String test2;
   }
 }

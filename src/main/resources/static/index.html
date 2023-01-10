@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <title>구매하기</title>
+  <meta charset="utf-8"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+</head>
+<body>
+<section>
+  <h1>구매하기</h1>
+  <h3>티셔츠</h3>
+  <span id="price">10</span>원
+  <br>
+  <button id="toss-payment-button">TOSS PAY로 결제하기</button>
+  <br>
+  <button id="kakao-payment-button">KAKAO PAY로 결제하기</button>
+</section>
+<script src="https://js.tosspayments.com/v1"></script>
+<script>
+  const orderId = new Date().getTime();
+  const price = parseInt(document.getElementById("price").textContent);
+  tossPay(orderId);
+
+  function tossPay(orderId) {
+    const tossPayments = TossPayments("test_ck_ADpexMgkW36GJ10RlzdVGbR5ozO0");
+    const tossPayButton = document.getElementById("toss-payment-button");
+
+    tossPayButton.addEventListener("click", function () {
+      const paymentData = {
+        amount: price,
+        orderId: orderId,
+        orderName: "티셔츠",
+        customerName: "이토페",
+        successUrl: window.location.origin + "/mars/payments/toss/success",
+        failUrl: window.location.origin + "/mars/payments/toss/fail",
+      };
+
+      tossPayments.requestPayment("카드", paymentData);
+    });
+  }
+</script>
+</body>
+</html>
