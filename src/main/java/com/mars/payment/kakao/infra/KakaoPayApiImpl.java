@@ -1,9 +1,11 @@
 package com.mars.payment.kakao.infra;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mars.payment.kakao.domain.repository.KakaoPayRepository;
+import com.mars.payment.kakao.domain.constant.KakaoExceptionInfo;
+import com.mars.payment.kakao.domain.repository.KakaoPayApi;
 import com.mars.payment.kakao.presentation.dto.KakaoApprove;
 import com.mars.payment.kakao.presentation.dto.KakaoPrepare;
+import com.mars.payment.kakao.presentation.dto.KakaoPrepare.Request;
 import com.mars.payment.kakao.presentation.dto.KakaoPrepare.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,23 +19,24 @@ import org.springframework.web.client.RestTemplate;
 @Repository
 @RequiredArgsConstructor
 @Slf4j
-public class KakaoPayRepositoryImpl implements KakaoPayRepository {
+public class KakaoPayApiImpl implements KakaoPayApi {
 
   private static final String KAKAO_HOST = "https://kapi.kakao.com";
 
   private final ObjectMapper objectMapper;
 
   @Override
-  public void preparePayment(KakaoPrepare.Request request) {
+  public Response preparePayment(Request request) {
     final var restTemplate = new RestTemplate();
     final var headers = getKakaoPayHeader();
     final var params = KakaoPrepare.convertToMap(request, objectMapper);
     final var body = new HttpEntity<>(params, headers);
 
     try {
-      final var response = restTemplate.postForObject(getKakaoPayPrepareUrl(), body, Response.class);
+      return restTemplate.postForObject(getKakaoPayPrepareUrl(), body, Response.class);
     } catch (RestClientException e) {
       log.error("카카오 결제 준비 과정에서 문제가 발생했습니다.", e);
+      throw KakaoExceptionInfo.CANNOT_PREPARE_KAKAO_PAY.exception();
     }
   }
 
@@ -51,6 +54,5 @@ public class KakaoPayRepositoryImpl implements KakaoPayRepository {
 
   @Override
   public void approvePayment(KakaoApprove.Request request) {
-
   }
 }
