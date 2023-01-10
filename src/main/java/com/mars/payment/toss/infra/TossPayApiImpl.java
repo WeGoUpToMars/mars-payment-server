@@ -9,6 +9,9 @@ import com.mars.payment.toss.presentation.dto.TossConfirmPayment;
 import com.mars.payment.toss.presentation.dto.TossCreatePayment;
 import com.mars.payment.toss.presentation.dto.TossPayment;
 import com.mars.payment.toss.vo.TossClient;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -16,9 +19,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
 
 @Slf4j
 @Component
@@ -48,12 +48,13 @@ public class TossPayApiImpl implements TossPayApi {
   public List<TossPayment.Cancel> cancelPayment(String paymentKey, TossCancelPayment tossCancelPayment) {
     final HttpEntity<String> body = getRequestBody(tossCancelPayment);
     final ResponseEntity<TossPayment> response = restTemplate.postForEntity(TossPayConstant.getCancelPaymentUrl(paymentKey), body, TossPayment.class);
+    final TossPayment tossPayment = response.getBody();
 
-    if (Objects.isNull(response.getBody())) {
+    if (Objects.isNull(tossPayment)) {
       return Collections.emptyList();
     }
 
-    return response.getBody().getCancels();
+    return tossPayment.getCancels();
   }
 
   @Override

@@ -19,35 +19,35 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(CustomException.class)
   protected ResponseEntity<ExceptionResponse> handleCustomException(CustomException e) {
-    e.printStackTrace();
+    log.error("customException", e);
     return new ResponseEntity<>(ExceptionResponse.of(e),
                                 e.getStatus());
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
   protected ResponseEntity<ExceptionResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-    e.printStackTrace();
+    log.error("methodArgumentNotValidException", e);
     return new ResponseEntity<>(ExceptionResponse.of(CommonExceptionInfo.INVALID_INPUT_VALUE.exception(), e.getBindingResult()),
                                 HttpStatus.BAD_REQUEST);
   }
 
   @ExceptionHandler(MethodArgumentTypeMismatchException.class)
   protected ResponseEntity<ExceptionResponse> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
-    e.printStackTrace();
+    log.error("methodArgumentTypeMismatchException", e);
     return new ResponseEntity<>(ExceptionResponse.of(CommonExceptionInfo.INVALID_TYPE_VALUE.exception()),
                                 HttpStatus.BAD_REQUEST);
   }
 
   @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
   protected ResponseEntity<ExceptionResponse> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
-    e.printStackTrace();
+    log.error("httpRequestMethodNotSupportedException", e);
     return new ResponseEntity<>(ExceptionResponse.of(CommonExceptionInfo.METHOD_NOT_ALLOWED.exception()),
                                 HttpStatus.BAD_REQUEST);
   }
 
   @ExceptionHandler(HttpClientErrorException.class)
   protected ResponseEntity<ExceptionResponse> handleHttpClientErrorException(HttpClientErrorException e) {
-    e.printStackTrace();
+    log.error("httpClientErrorException", e);
     return new ResponseEntity<>(ExceptionResponse.of(CustomException.of(e.getMessage(), e.getStatusCode())),
                                 e.getStatusCode());
   }
