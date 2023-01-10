@@ -1,11 +1,14 @@
 package com.mars.payment.kakao.presentation.dto;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mars.common.util.MultiValueMapConverter;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.util.MultiValueMap;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class KakaoApprove {
@@ -77,5 +80,9 @@ public class KakaoApprove {
     private String cardMid; // 카드사 가맹점 번호
     private String interestFreeInstall; // 무이자할부 여부 (Y/N)
     private String cardItemCode; // 카드 상품 코드
+  }
+
+  public static MultiValueMap<String, String> convertToMap(KakaoApprove.Request request, ObjectMapper objectMapper) {
+    return MultiValueMapConverter.convert(objectMapper, request);
   }
 }
