@@ -10,6 +10,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @Slf4j
@@ -42,6 +43,13 @@ public class GlobalExceptionHandler {
     log.error("httpRequestMethodNotSupportedException", e);
     return new ResponseEntity<>(ExceptionResponse.of(CommonExceptionInfo.METHOD_NOT_ALLOWED.exception()),
                                 HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(HttpClientErrorException.class)
+  protected ResponseEntity<ExceptionResponse> handleHttpClientErrorException(HttpClientErrorException e) {
+    log.error("httpClientErrorException", e);
+    return new ResponseEntity<>(ExceptionResponse.of(CustomException.of(e.getMessage(), e.getStatusCode())),
+                                e.getStatusCode());
   }
 
   @ExceptionHandler(Exception.class)
