@@ -3,8 +3,8 @@ package com.mars.payment.kakao.infra;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mars.payment.kakao.domain.repository.KakaoPayRepository;
 import com.mars.payment.kakao.presentation.dto.KakaoApprove;
-import com.mars.payment.kakao.presentation.dto.KakaoInquiry;
 import com.mars.payment.kakao.presentation.dto.KakaoPrepare;
+import com.mars.payment.kakao.presentation.dto.KakaoPrepare.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -31,7 +31,7 @@ public class KakaoPayRepositoryImpl implements KakaoPayRepository {
     final var body = new HttpEntity<>(params, headers);
 
     try {
-      restTemplate.postForLocation(getKakaoPayPrepareUrl(), body);
+      final var response = restTemplate.postForObject(getKakaoPayPrepareUrl(), body, Response.class);
     } catch (RestClientException e) {
       log.error("카카오 결제 준비 과정에서 문제가 발생했습니다.", e);
     }
@@ -47,11 +47,6 @@ public class KakaoPayRepositoryImpl implements KakaoPayRepository {
     headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
     headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
     return headers;
-  }
-
-  @Override
-  public void inquiryPayment(KakaoInquiry.Request request) {
-
   }
 
   @Override
