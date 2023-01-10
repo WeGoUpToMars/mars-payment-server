@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 public enum KakaoExceptionInfo {
 
   CANNOT_PREPARE_KAKAO_PAY("카카오 결제 준비 과정에서 문제가 발생했습니다.", HttpStatus.BAD_REQUEST),
-  ;
+  CANNOT_APPROVE_KAKAO_PAY("카카오 결제 승인 과정에서 문제가 발생했습니다.", HttpStatus.BAD_REQUEST);
 
   private final String message;
   private final HttpStatus status;

@@ -15,12 +15,12 @@ public class KakaoPayService {
   private final KakaoPayApi kakaoPayApi;
 
   @Transactional
-  public KakaoPrepare preparePayment(KakaoPrepare.Request request) {
+  public KakaoPrepare.Response preparePayment(KakaoPrepare.Request request) {
     return kakaoPayApi.preparePayment(request);
   }
 
   @Transactional
-  public KakaoApprove approvePayment(KakaoApprove.Request request) {
+  public KakaoApprove.Response approvePayment(KakaoApprove.Request request) {
     return kakaoPayApi.approvePayment(request);
   }
 }
