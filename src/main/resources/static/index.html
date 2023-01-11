@@ -5,6 +5,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="x-ua-compatible" content="ie=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 <section>
@@ -38,6 +39,36 @@
 
       tossPayments.requestPayment("카드", paymentData);
     });
+  }
+</script>
+<script>
+  const prepareRequest = {
+    "cid": "TC0ONETIME",
+    "partner_order_id": "mars-01",
+    "partner_user_id": "user-01",
+    "item_name": "책",
+    "quantity": 1,
+    "total_amount": 10000,
+    "tax_free_amount": 10000,
+    "approval_url": window.location.origin + "/mars/payments/kakao/success",
+    "cancel_url": window.location.origin + "/mars/payments/kakao/cancel",
+    "fail_url": window.location.origin + "/mars/payments/kakao/fail"
+  };
+
+  kakaoPay();
+
+  function kakaoPay() {
+    $('#kakao-payment-button').click(
+            function () {
+              $.ajax({
+                url: "http://localhost:18189/mars/payments/kakao/prepare",
+                method: "post",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(prepareRequest)
+              })
+            }
+    );
   }
 </script>
 </body>
