@@ -5,6 +5,7 @@ import com.mars.payment.kakao.domain.constant.KakaoExceptionInfo;
 import com.mars.payment.kakao.domain.repository.KakaoPayApi;
 import com.mars.payment.kakao.presentation.dto.KakaoApprove;
 import com.mars.payment.kakao.presentation.dto.KakaoPrepare;
+import com.mars.payment.kakao.presentation.dto.KakaoPrepare.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -31,7 +32,7 @@ public class KakaoPayApiImpl implements KakaoPayApi {
     final var body = new HttpEntity<>(params, headers);
 
     try {
-      return restTemplate.postForObject(getKakaoPayPrepareUrl(), body, KakaoPrepare.Response.class);
+      return restTemplate.postForObject(getKakaoPayPrepareUrl(), body, Response.class);
     } catch (RestClientException e) {
       log.error("카카오 결제 준비 과정에서 문제가 발생했습니다.", e);
       throw KakaoExceptionInfo.CANNOT_PREPARE_KAKAO_PAY.exception();
@@ -39,7 +40,7 @@ public class KakaoPayApiImpl implements KakaoPayApi {
   }
 
   private String getKakaoPayPrepareUrl() {
-    return KAKAO_HOST + "/v1/payment/order";
+    return KAKAO_HOST + "/v1/payment/ready";
   }
 
   private static HttpHeaders getKakaoPayHeader() {
