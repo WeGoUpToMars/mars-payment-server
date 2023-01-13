@@ -21,12 +21,14 @@
 <script>
   const orderId = new Date().getTime();
   const price = parseInt(document.getElementById("price").textContent);
-  tossPay(orderId);
 
-  function tossPay(orderId) {
+  tossPay(orderId, price);
+  kakaoPay(orderId, price);
+
+  function tossPay(orderId, price) {
     const tossPayments = TossPayments("test_ck_ADpexMgkW36GJ10RlzdVGbR5ozO0");
-    const tossPayButton = document.getElementById("toss-payment-button");
 
+    const tossPayButton = document.getElementById("toss-payment-button");
     tossPayButton.addEventListener("click", function () {
       const paymentData = {
         amount: price,
@@ -39,25 +41,24 @@
 
       tossPayments.requestPayment("카드", paymentData);
     });
+
   }
-</script>
-<script>
-  const prepareRequest = {
-    "cid": "TC0ONETIME",
-    "partner_order_id": "mars-01",
-    "partner_user_id": "user-01",
-    "item_name": "책",
-    "quantity": 1,
-    "total_amount": 10000,
-    "tax_free_amount": 10000,
-    "approval_url": window.location.origin + "/mars/payments/kakao/success",
-    "cancel_url": window.location.origin + "/mars/payments/kakao/cancel",
-    "fail_url": window.location.origin + "/mars/payments/kakao/fail"
-  };
 
-  kakaoPay();
+  function kakaoPay(orderId, price) {
 
-  function kakaoPay() {
+    const prepareRequest = {
+      "cid": "TC0ONETIME",
+      "partner_order_id": orderId,
+      "partner_user_id": "user-01",
+      "item_name": "책",
+      "quantity": 1,
+      "total_amount": price,
+      "tax_free_amount": price,
+      "approval_url": window.location.origin + "/mars/payments/kakao/success",
+      "cancel_url": window.location.origin + "/mars/payments/kakao/cancel",
+      "fail_url": window.location.origin + "/mars/payments/kakao/fail"
+    };
+
     $('#kakao-payment-button').click(
             function () {
               $.ajax({
@@ -67,9 +68,26 @@
                 dataType: "json",
                 data: JSON.stringify(prepareRequest),
                 success: function (response) {
-                  alert(response);
+                  const kakaoResponse = {
+                    "tid": response.tid,
+                    "next_redirect_app_url": response.next_redirect_app_url,
+                    "next_redirect_mobile_url": response.next_redirect_mobile_url,
+                    "next_redirect_pc_url": response.next_redirect_pc_url,
+                    "android_app_scheme": response.android_app_scheme,
+                    "ios_app_scheme": response.ios_app_scheme,
+                    "created_at": response.create
+                  }
+
+                  console.log(kakaoResponse);
+
+                  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                    window.location.href = kakaoResponse.next_redirect_mobile_url;
+                  } else {
+                    window.location.href = kakaoResponse.next_redirect_pc_url;
+                  }
                 },
                 error: function (error) {
+                  console.log(error);
                   alert("error!");
                 }
               });
