@@ -3,7 +3,6 @@ package com.mars.payment.kakao.presentation.controller;
 import com.mars.payment.kakao.application.KakaoPayService;
 import com.mars.payment.kakao.presentation.dto.KakaoApprove;
 import com.mars.payment.kakao.presentation.dto.KakaoPrepare;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -27,23 +26,18 @@ public class KakaoPayController {
     return ResponseEntity.ok(kakaoPayService.preparePayment(request));
   }
 
-  @PostMapping("/approve")
-  public ResponseEntity<KakaoApprove.Response> approvePayment(@RequestBody KakaoApprove.Request request) {
+  @PostMapping("success")
+  public ResponseEntity<String> success(@RequestBody KakaoApprove.Request request) {
     return ResponseEntity.ok(kakaoPayService.approvePayment(request));
-  }
-
-  @GetMapping("success")
-  public ResponseEntity<String> success() {
-    return ResponseEntity.of(Optional.of("df"));
   }
 
   @GetMapping("fail")
   public ResponseEntity<String> fail() {
-    return ResponseEntity.of(Optional.of("fd"));
+    return ResponseEntity.ok("결제가 실패했습니다.");
   }
 
   @PutMapping("cancel")
   public ResponseEntity<String> cancel() {
-    return ResponseEntity.of(Optional.of("sf"));
+    return ResponseEntity.ok("결제가 취소되었습니다.");
   }
 }
