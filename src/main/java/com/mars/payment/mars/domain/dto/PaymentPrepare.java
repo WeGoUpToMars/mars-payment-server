@@ -15,9 +15,10 @@ public class PaymentPrepare {
   @Builder
   public static class Request {
     private String accountId;
-    private String store; // 가맹점 이름
+    private String storeName; // 가맹점 이름
     private String itemName;
     private Integer quantity;
+    private String windowLocation;
   }
 
   @Data
