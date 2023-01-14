@@ -28,7 +28,8 @@ public class Product extends BaseEntity {
   private Long id;
 
   private String name;
-  private Long price;
+  private Integer price;
+  private Integer quantity;
 
   @Enumerated(value = EnumType.STRING)
   private ProductCategory category;
@@ -36,17 +37,19 @@ public class Product extends BaseEntity {
   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
   private final List<OrderProduct> orderProducts = new ArrayList<>();
 
-  private Product(String name, Long price, ProductCategory category) {
+  private Product(String name, Integer price, Integer quantity, ProductCategory category) {
     this.name = name;
     this.price = price;
+    this.quantity = quantity;
     this.category = category;
   }
 
-  public static Product create(String name, Long price, ProductCategory category) {
+  public static Product create(String name, Integer price, Integer quantity, ProductCategory category) {
     Objects.requireNonNull(name);
     Objects.requireNonNull(price);
+    Objects.requireNonNull(quantity);
     Objects.requireNonNull(category);
-    return new Product(name, price, category);
+    return new Product(name, price, quantity, category);
   }
 
   public void updateName(String name) {
@@ -54,9 +57,14 @@ public class Product extends BaseEntity {
     this.name = name;
   }
 
-  public void updatePrice(Long price) {
+  public void updatePrice(Integer price) {
     Objects.requireNonNull(price);
     this.price = price;
+  }
+
+  public void updateQuantity(Integer quantity) {
+    Objects.requireNonNull(quantity);
+    this.quantity = quantity;
   }
 
   public void updateCategory(ProductCategory category) {

@@ -10,6 +10,8 @@ public interface ProductRepository {
 
   Optional<Product> findById(Long id);
 
+  Optional<Product> findByName(String itemName);
+
   List<Product> findAll();
 
   List<Product> findByIds(List<Long> ids);
