@@ -73,6 +73,7 @@ public class KakaoPayService {
                                                                              .partnerUserId(savedPaymentInfo.getPartnerUserId())
                                                                              .pgToken(request.getPgToken())
                                                                              .build());
+    // 적당히 저장
     if (savedPaymentInfo.getTotalAmount().equals(kakaoResponse.getAmount().getTotal())) { // 여기에 부차적인 예외처리 추가되어야 한다
       throw KakaoExceptionInfo.NO_VALID_PAYMENT_INFO.exception();
     }
