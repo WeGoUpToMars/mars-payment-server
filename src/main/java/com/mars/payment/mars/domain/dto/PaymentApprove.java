@@ -24,6 +24,10 @@ public class PaymentApprove {
   @AllArgsConstructor
   @Builder
   public static class Response {
-    private String status; // approved, failed
+    private PaymentStatus status;
+  }
+
+  public enum PaymentStatus {
+    APPROVED, FAILED;
   }
 }
