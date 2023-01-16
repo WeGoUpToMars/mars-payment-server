@@ -8,6 +8,7 @@ import com.mars.payment.kakao.domain.repository.PaymentRepository;
 import com.mars.payment.kakao.presentation.dto.KakaoApprove;
 import com.mars.payment.kakao.presentation.dto.KakaoPrepare.Request;
 import com.mars.payment.mars.domain.dto.PaymentApprove;
+import com.mars.payment.mars.domain.dto.PaymentApprove.PaymentStatus;
 import com.mars.payment.mars.domain.dto.PaymentPrepare;
 import com.mars.product.domain.repo.ProductRepository;
 import com.mars.store.repository.StoreRepository;
@@ -33,7 +34,7 @@ public class KakaoPayService {
     final var order = orderRedis.findByAccountId(request.getAccountId());
     final var product = productRepository.findByName(request.getItemName()).orElseThrow(NoSuchElementException::new);
     if (product.getQuantity() < request.getQuantity()) {
-      // 예외 터트리기
+      throw KakaoExceptionInfo.NO_AVAILIABLE_QUANTITY_EXIST.exception();
     }
     final var kakaoResponse = kakaoPayApi.preparePayment(Request.builder()
                                                                 .cid(store.getCode())
@@ -76,7 +77,7 @@ public class KakaoPayService {
       throw KakaoExceptionInfo.NO_VALID_PAYMENT_INFO.exception();
     }
     return PaymentApprove.Response.builder()
-                                  .status("approved")
+                                  .status(PaymentStatus.APPROVED)
                                   .build(); // 사실 여기서도 마스만의 response를 반환하는 거임
   }
 }
