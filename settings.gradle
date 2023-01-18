@@ -1,1 +1,9 @@
 rootProject.name = 'mars'
+
+include 'core'
+include 'api-infra'
+include 'order-service'
+include 'payment-service'
+include 'user-service'
+include 'product-service'
+include 'store-service'

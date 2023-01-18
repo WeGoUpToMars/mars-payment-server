@@ -1,41 +1,95 @@
-plugins {
-    id 'java'
-    id 'org.springframework.boot' version '2.7.5'
-    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-}
-
-group = 'com'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
+buildscript {
+    ext {
+        springBootVersion = '2.7.6'
+        dependencyManagementVersion = '1.1.0'
+        releaseTrainVersion = '2021.0.3'
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" } // plugin 저장소
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "io.spring.gradle:dependency-management-plugin:${dependencyManagementVersion}"
+        classpath "mysql:mysql-connector-java:8.0.31"
     }
 }
 
-repositories {
-    mavenCentral()
+subprojects {
+    group = 'com.mars'
+    version = '0.0.1-SNAPSHOT'
+
+    apply plugin: 'java-library'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = '11'
+
+    dependencies {
+//        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+        implementation 'org.springdoc:springdoc-openapi-ui:1.6.14'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        testImplementation 'org.projectlombok:lombok:1.18.22'
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        implementation 'org.springframework.boot:spring-boot-starter-validation'
+        implementation 'org.springframework.boot:spring-boot-starter-test'
+        runtimeOnly 'com.mysql:mysql-connector-j'
+        testImplementation 'com.h2database:h2'
+        developmentOnly 'org.springframework.boot:spring-boot-devtools'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.apache.commons:commons-lang3:3.12.0'
+        implementation 'org.apache.httpcomponents:httpclient'
+        implementation 'com.google.guava:guava:31.1-jre'
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
+
+    repositories {
+        mavenCentral()
+    }
 }
 
-dependencies {
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-    implementation 'org.springdoc:springdoc-openapi-ui:1.6.14'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    testImplementation 'org.projectlombok:lombok:1.18.22'
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'com.mysql:mysql-connector-j'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'com.h2database:h2'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation 'org.apache.commons:commons-lang3:3.12.0'
-    implementation 'org.apache.httpcomponents:httpclient'
-    implementation 'com.google.guava:guava:31.1-jre'
+
+project(':api-infra') {
+
+}
+project(':order-service') {
+    dependencies {
+        implementation project(':core')
+        implementation project(':payment-service')
+        implementation project(':product-service')
+        implementation project(':store-service')
+        implementation project(':user-service')
+    }
+}
+project(':payment-service') {
+    dependencies {
+        implementation project(':core')
+        implementation project(':api-infra')
+    }
+}
+project(':user-service') {
+    dependencies {
+        implementation project(':core')
+    }
+}
+project(':product-service') {
+    dependencies {
+        implementation project(':core')
+    }
+}
+project(':store-service') {
+    dependencies {
+        implementation project(':core')
+    }
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
-}
