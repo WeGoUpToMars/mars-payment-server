@@ -20,4 +20,12 @@ public interface MultiValueMapConverter {
       throw CommonExceptionInfo.CANNOT_PARSE_URL_PARAMETER.exception();
     }
   }
+
+  static String convertAsJson(ObjectMapper mapper, Object dto) {
+    try {
+      return mapper.writeValueAsString(dto);
+    } catch (Exception e) {
+      throw CommonExceptionInfo.CANNOT_PARSE_URL_PARAMETER.exception();
+    }
+  }
 }
